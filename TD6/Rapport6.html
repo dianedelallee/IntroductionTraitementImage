@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>Traitement de l'image - TD 6 : Filtrage par convolutions </TITLE>
+	<META NAME="AUTHOR" CONTENT="Diane Delallée">
+	<META NAME="CREATED" CONTENT="20120125;22385100">
+	<META NAME="CHANGEDBY" CONTENT="Diane Delallée">
+	<META NAME="CHANGED" CONTENT="20120125;23293800">
+<link rel="stylesheet" media="screen" type="text/css" title="Design" href="style.css" />
+</HEAD>
+
+<BODY LANG="fr-FR" DIR="LTR">
+Diane Delall&eacute;e  & Nicolas Nowak- M1 Informatique<br/>
+<h1><center>TD6 : Filtrage par convolutions</center></h1>
+
+<h2>1.Programmartion par convolution</h2>
+<h3>a.	Type "type convol"</h3>
+<center><img src="img/typeConvol.png" width="30%" alt="typeConvol"/></center>
+
+<h3>b.	Calcul du produit de convolution</h3>
+<center><img src="img/boucle.png" width="70%" alt="parcours des matrices"/></center>
+
+<h3>c.	Liste des filtres</h3>
+<center><img src="img/init1.png" width="40%" alt="matrices des filtres"/></center>
+<center><img src="img/init2.png" width="40%" alt="matrices des filtres"/></center>
+
+
+
+
+<h2>2.Filtres d'invention</h2>
+<h3>a.	Déplaçant l'image de 2 pixels à gauche</h3>
+On va avoir un filtre de coefficient : 1, d'offest 0 et avec pour matrice :<br/>
+<center><img src="img/decalage2Gauche.png" width="20%" alt="matrices de decalage de 2 pixels a gauche"/></center>
+
+
+<h3>b.	Donnant l'impression de mouvement</h3>
+Pour donner une impression de mouvement on va appliquer une matrice de flou. Certains flou comme le flou "zoom" ou le flou "linéaire" renforce plus ou moins cet effet/ Pour notre part nous avons choisit le filtre de flou linéaire.
+Ce filtre a pour coefficient 1, pour offset 0 et pour matrice : <br/>
+<center><img src="img/filtreflou.png" width="20%" alt="matrices de decalage de 2 pixels a gauche"/></center>
+
+<h2>3.Combinaison de filtres</h2>
+
+<h3>a.	Opérations arithmétiques sur les matrices de convolution</h3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coefficient : 1/400<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- offset : 0<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- matrice : <br/>
+<center><img src="img/difference.png" width="20%" alt="difference entre matrice moyenne 5x5 et gauss 3x3"/></center>
+
+<h3>b. Itérations d'un m&ecirc;me filtre</h3>
+Lorsque l'on répète deux fois le filtre gaussien 3x3, on obtient un coefficient de 1/32, un offset de 0 et une matrice comme suit : <br/>
+<center><img src="img/2iterations.png" width="15%" alt="Repetition du filtre gaussien 3x3 deux fois"/></center><br/><br/>
+Lorsque l'on repète trois fois le filtre gaussien 3x3, on obtient un coefficient 1/512, un offset de 0 et une matrice comme suit : <br/>
+<center><img src="img/3iterations.png" width="15%" alt="Repetition du filtre gaussien 3x3 deux fois"/></center>
+
+<h2>5.Composantes des ondelettes</h2>
+<h3>a.	Matrices de Gauss de taille quelconque</h3>
+
+<u>3x3 :</u><br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coefficient : 1/16<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- offset : 0<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- matrice : <br/>
+<center><img src="img/gauss3x3.png" width="15%" alt="matrice de gauss de taille 3x3"/></center>
+
+<u>5x5 :</u><br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coefficient : 1/79<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- offset : 0<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- matrice : <br/>
+<center><img src="img/gauss5x5.png" width="20%" alt="matrice de gauss de taille 5x5"/></center>
+
+<u>7x7 :</u><br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coefficient : 1/201<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- offset : 0<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- matrice : <br/>
+<center><img src="img/gauss7x7.png" width="30%" alt="matrice de gauss de taille 7x7"/></center>
+
+<u>11x11 :</u><br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- coefficient : 1/673<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- offset : 0<br/>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- matrice : <br/>
+<center><img src="img/gauss11x11.png" width="40%" alt="matrice de gauss de taille 11x11"/></center>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+<b><i>Notes personnelles :</i></b><br/>
+</BODY>
+</HTML>

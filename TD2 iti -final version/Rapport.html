@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>Traitement de l'image - TD2 : statistiques des images</TITLE>
+	<META NAME="AUTHOR" CONTENT="Diane Delallée">
+	<META NAME="CREATED" CONTENT="20120125;22385100">
+	<META NAME="CHANGEDBY" CONTENT="Diane Delallée">
+	<META NAME="CHANGED" CONTENT="20120125;23293800">
+<link rel="stylesheet" media="screen" type="text/css" title="Design" href="style.css" />
+</HEAD>
+
+<BODY LANG="fr-FR" DIR="LTR">
+Diane Delall&eacute;e - M1 Informatique<br/>
+<h1><center>TD2 : statistiques des images</center></h1>
+
+<h2>1.Pixels image et pixels de background</h2>
+Afin de compter le nombre de pixels ayant la valeur 0 dans une image, on va ajouter un morceau de code dans le programme skelet.c qui permet de parcourir l'image pixel par pixel et compter le nombre de pixel dont la valeur est à 0.</br>
+Afin de calculer la proportion, on va également dans ce morceau de code compter le nombre total de pixels.<br/></br>
+<img src="img/code1.png" width="75%"></br></br>
+On trouve alors que pour girl.r il n'y a aucun pixel ayant pour valeur 0. La proportion est donc de 0%.</br></br>
+<center><img src="img/Lena.png" width="30%"></center></br>
+Concernant sans-remo.1, on trouve qu'il y a 15913 pixels ayant pour valeur 0. Cela nous fait donc une proportion de 6,07% &nbsp;&nbsp;(15913/262144*100).</br></br>
+<center><img src="img/sanRemo1.png" width="30%"></center>
+
+<h2>2.Histogramme</h2>
+
+<h3>a.Calculer et afficher l’histogramme de chaque canal de l’image</h3>
+Afin de calculer l'histogramme de l'image, on va créer un tableau de taille 256 correspondant aux valeurs possibles des pixels. On va ensuite parcourir tous les pixels de l'image et on incrémentera de 1 la valeur du tableau correspondant à la valeur du pixel.</br>
+Une fois cela fait, on affichera un nombre d'étoiles proportionnel au nombre de pixels de valeur i.</br></br>
+<img src="img/code2.png" width="80%">
+
+<h3>b.Afficher « l’image histogramme »</h3>
+Dans cette partie, on a utilisé Gimp afin de transformer, pivoter et redimensionner les histogrammes que l'on a obtenus avec le programme skelet.c.
+
+<h3>c.Capturer « l’image histogramme »</h3>
+On va donc présenter ici tous les histogrammes obtenus pour chaque canal : </br>
+Commençons avec les images de Léna.</br></br>
+girl.1 : <img src="img/girl1.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoGirl1StarFinal.png" width="60%"></br></br>
+girl.2 : <img src="img/girl2.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoGirl2StarFinal.png" width="60%"></br></br>
+girl.3 : <img src="img/girl3picture.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoGirl3StarFinal.png" width="60%"></br></br>
+Léna : <img src="img/Lena.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoLenaStarFinal.png" width="60%"></br></br>
+san-remo.1 : <img src="img/sanremo1.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoGirl1StarFinal.png" width="60%"></br></br>
+san-remo.2 : <img src="img/sanremo2.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoSanRemo1StarFinal.png" width="40%"></br></br>
+san-remo.3 : <img src="img/sanremo3.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoSanRemo2StarFinal.png" width="40%"></br></br>
+san-remo : <img src="img/sansremo321.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoSanRemo321StarFinal.png" width="40%"></br></br>
+New-York : <img src="img/NY.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoNewYorkStar.png" width="60%">
+
+<h2>3.Moyenne et écart-type</h2>
+
+<h3>a.Formulation mathématique</h3>
+Commençons tout d'abord par rappeler les formules de la moyenne et de l'écart-type :</br>
+ <img src="img/FormMoyenne.png" width="20%"></br></br>
+ <img src="img/FormET.png" width="28%"></br></br>
+Dans notre exemple, on sait que H(r) = 0,255. On obtient donc les formules suivantes : </br></br>
+ <img src="img/FormSemiCompleted.png" width="40%"></br></br>
+Il ne reste plus qu'à déterminer les dimensions de l'image afin de connaitre M et N. En les remplaçant dans les équations on pourra ainsi déterminer la valeur de la moyenne et de l'écart-type.
+
+<h3>b.Programmation et calcul de la moyenne et de l’écart-type</h3>
+Afin de ne pas tenir compte des pixels de background, il suffit de ne pas prendre en compte tous les pixels dont la valeur est égale à 0.
+Le tableau ci-dessous représente les statistiques (moyenne et écart-type) des différents canaux d'images : </br>
+<img src="img/recap.png" width="55%">
+
+<h2>4.Conclusion</h2>
+Rappelons quelques principe permettant de décrypter une image à partir de son histogramme.</br>
+Tout d'abord, l'écart-type nous permet de mesurer le contraste d'une photo. Plus l'écart-type sera fort et plus l'image sera contrastée.</br>
+Concernant l'histogramme lui m&ecirc;me, si celui-ci est décalé sur la droite, alors l'image sera claire, à contrario, si celui-ci est décalé sur la gauche, allors l'image sera sombre. On notera également que plus un histogramme est étalé et plus les couleurs seront dispersées, plus l'image sera riche et l'entropie forte.</br>
+A l'inverse, lorsque l'écart-type est faible, on constate que l'histogramme est resseré.
+</br></br>
+En ce qui concerne l'image de Léna (girl.{3,2,1}), on constate que l'histogramme est très étalé puisque seuls quelques pixels aux extr&ecirc;mités sont très faiblements représentés. Cette image est donc très riche au niveau des couleurs. Si l'on regarde maintenant son contraste, on constate que l'histogramme est assez bien réparti, l'image possède donc des contrastes importants. On constate que le graphique ne touche ni le c&ocirc;té gauche, ni le c&ocirc;té droit, l'exposition est donc correcte.
+</br>
+<center><img src="img/Lena.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoLenaStarFinal.png" width="60%"></center></br></br>
+
+Interressons nous à présent à l'image de San-Remo. En regardant son histogramme, on constate qu'il n'est pas très étalé, en effet les pixels se situent majoritairement dans le tiers gauche de l'histogramme. On a donc ici une image ou il y a peu de couleurs différentes (on note principalement du noir et un bleu-violet) et qui est assez sombre. Cette image est donc sous-exposée.
+</br>
+<center><img src="img/sansremo321.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoSanRemo321StarFinal.png" width="30%"></center></br></br>
+</br></br>
+Enfin pour l'image de New-York, on constate que l'histogramme est principalement décalé sur la gauche, ce qui nous permet de dire que l'image doit &ecirc;tre sombre. De plus, celui-ci n'est pas très étalé puisque la moitié droite n'est presque pas représentée. Cette image, comme la précédente, ne possède donc pas un vaste panel de couleurs.
+</br></br>
+<center><img src="img/NY.png" width="30%"> &nbsp; &nbsp; &nbsp;<img src="img/HistoNewYorkStar.png" width="60%"></center>
+</BODY>
+</HTML>

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>Traitement de l'image - TD 4 : utilisation d’une table de LUT – stretching automatique </TITLE>
+	<META NAME="AUTHOR" CONTENT="Diane Delallée">
+	<META NAME="CREATED" CONTENT="20120125;22385100">
+	<META NAME="CHANGEDBY" CONTENT="Diane Delallée">
+	<META NAME="CHANGED" CONTENT="20120125;23293800">
+<link rel="stylesheet" media="screen" type="text/css" title="Design" href="style.css" />
+</HEAD>
+
+<BODY LANG="fr-FR" DIR="LTR">
+Diane Delall&eacute;e - M1 Informatique<br/>
+<h1><center>TD4 : utilisation d’une table de LUT – stretching automatique</center></h1>
+
+<h2>1.Utilisation d’une table de LUT</h2>
+<h3>a.	Expression d’affectation à travers une LUT</h3>
+Il faut creer un nouveau tableau LUT : int [256] ainsi pour chaque pixel de valeur i, on regardera dans le tableau LUT la valeur de la case i. Cela correspondra a la valeur que le pixel de processed-image devra avoir. </br>
+ex : origin_image[ichannel][ili*npxin] = 55  => on regarde LUT[55] => 23 (par ex) =>processed_image[ichannel][ili*npxin]  =23</br></br>
+<center><img src="img/Exo1commande.png" width="60%"></center>
+
+<h3>b.	Fonction de transformation radiométrique globale</h3>
+Comme il s'agit de regarder dans un tableau que l'on définit dans une méthode (ici dans le switch de notre programme), celui-ci doit &ecirc;tre accessible depuis n'importe quel autre partie du programme. De ce fait, la fonction de LUT doit &ecirc;tre ou avoir une portée globale.</br>
+
+<h3>c.	Fonction de transformation d’histogramme</h3>
+Principe général :</br>
+il faut parcourir le tableau representant l'histogramme, pour chaque valeur i, on regarde la valeur LUT[i], et dans le tableau de sortie HSortie[i] on met le nombre de pixels qu'il y avait dans H[i]</br>
+ex : H(r) = 23 (nb de pixels de valeur r) => LUT[r]=44  => HSortie[44] = 23</br></br>
+
+TransformationHistogramme(int[] H, int[] F) { </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int[] res ;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int nbPixelH = 0 ;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int newReference = 0 ;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for(int i = 0 ; i &lsaquo; 256 ; i++) {</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nbPixelH = H[i] ;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newReference = F[i] ;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;res[newReference] = nbPixelH ;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return res;</br>
+}
+
+<h3>d.	Menu des traitements radiométriques globaux</h3>
+<center><img src="image/menuGeneral.png" width="40%"></center>
+</br>
+Suivant le cas, le tableau aura la forme suivante :  </br>
+&nbsp;&nbsp;&nbsp;<i><b>case 1 - identique :&nbsp;&nbsp;</b></i> LUT [0,1,2,3,4,5,....,252,253,254,255]</br>
+</br><center><b><img src="image/menuIdentite.png" width="40%">&nbsp;&nbsp;&nbsp;<img src="img/case1.png" width="48%"></b></center></br>
+&nbsp;&nbsp;&nbsp;<i><b>case 2 - opposé :&nbsp;&nbsp;</b></i> LUT [255,254,253,252,...5,4,3,2,1,0]</br>
+</br><center><b><img src="image/menuNegatif.png" width="40%">&nbsp;&nbsp;&nbsp;<img src="img/case2.png" width="48%"></b></center></br>
+&nbsp;&nbsp;&nbsp;<i><b>case 3 - seuillageA128 :&nbsp;&nbsp;</b></i> LUT [0,0,0....,255,255,255] le changement s'effectue au niveau du pixel 128</br>
+</br><center><b><img src="image/menuSeuillage.png" width="40%">&nbsp;&nbsp;&nbsp;<img src="img/case3.png" width="48%"></b></center></br>
+&nbsp;&nbsp;&nbsp;<i><b>case 4 - StretchingLineaire4point :&nbsp;&nbsp;</b></i> LUT [0,0,0,0,.., Form(i), Form(i), Form(i),...,255,255,255] jusqu'au pixel 50 inclu valeur à 0, a partie du pixel 205 inclu valeur a 255 et sinon on applique Form(i) = (i-50/205-50)</br>
+On constate alors que l'image obtenue est légèrement plus claire (voir le front et le dessous du chapeau).</br>
+</br><center><b><img src="image/menu4.png" width="40%">&nbsp;&nbsp;&nbsp;<img src="img/case4.png" width="48%"></b></center></br>
+&nbsp;&nbsp;&nbsp;<i><b>case 5 - StretchingLineaire2points :&nbsp;&nbsp;</b></i> LUT [0,0,0,0,.., Form(i), Form(i), Form(i),...,255,255,255] jusqu'au pixel 50 exclu valeur à 0, a partie du pixel 205 exclu valeur a 255 et sinon on applique Form(i) = (i-50/205-50)</br>
+</br><center><b><img src="image/menu5.png" width="40%">&nbsp;&nbsp;&nbsp;<img src="img/case5.png" width="48%"></b></center></br></br>
+
+Afin d'optimiser le code en limitant l'utilisation des boucles "for", on va utiliser un seul et m&ecirc;me tableau LUT, dont les valeurs changeront en fonction de l'option appelée par l'utilisateur. Une fois le tableau actualisé, on parcourra chaque pixel de l'image d'origine pour modifier sa valeur.</br></br>
+<center><img src="img/optimisation.png" width="60%"></center> </br>
+
+La différence en tre la transformation 4 et la transformation 5 réside dans la précision des informations. Avec la commande 4, on sait que l'on doit mettre à 0 tous les pixels de 0 a 50 inclus, et à 255 tous les pixels de 205 inclus a 255. Mais avec la commande 5, on ne sait pas si les pixels 50 et 205 doivent &ecirc;tre inclus ou non. Dans le cas présent, pour la commande 5, nous exclurons les deux pixels en question (ils feront partit de l'intervalle qui subira la formule (i-205/205-50)).
+
+<h2>2.Stretching automatique</h2>
+<h3>a.	Recherche à partir d’un histogramme</h3>
+
+<i><u>Pseudo-code qui calcule le nombre total de pixels image (N) à partie des valeurs de l'histogramme H(r) : </u></i></br></br>
+
+Pour calculer le nombre total de pixels image à partir d'un histogramme, on prend la somme de tous les pixels sauf ceux dont la valeur est 0, car ceux sont les pixels de background.</br></br>
+
+nombreDePixels (int[] H) {</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int nbPixels = 0</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pour r de 1 à 255 </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nbPixels = nbPixels + H[r]</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retourne nbPixels</br>
+}</br></br>
+
+
+<i><u>Pseudo-code qui calcule la valeur de la borne a en fonction des valeurs de l'histogramme H(r), α  et de N : </u></i> </br></br>
+
+Pour calculer la valeur de la borne a, on a besoin des données suivantes : </br>
+&nbsp; - α  = pourcentage de saturation</br>
+&nbsp; - Ns = nombre de pixels image saturé</br>
+&nbsp; - NbPixels = nombre total de pixels image</br></br>
+
+borneAValue (float α , int[] H) {</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float alpha = α  </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int NbPixels = nombreDePixels(H)</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int Ns = NbPixels * alpha</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ns = E(Ns / 2)</br>
+<violet>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// ici E(Ns/2) correspond à la partie entière de l'opération Ns/2</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// on ne prend que la moitié de la valeur de saturation</br></violet>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int a = Ns</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retourne a</br>
+}</br></br>
+
+<i><u>Pseudo-code qui calcule la valeur de la borne b en fonction des valeurs de l'histogramme H(r), α  et de N : </u></i>  </br></br>
+
+Pour calculer la valeur de la borne b, on a besoin des données suivantes : </br>
+&nbsp; - α  = pourcentage de saturation</br>
+&nbsp; - Ns = nombre de pixels image saturé</br>
+&nbsp; - NbPixels = nombre total de pixels image</br></br>
+
+borneBValue (float α , int[] H) {</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;float alpha = α  </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int NbPixels = nombreDePixels(H)</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int Ns = NbPixels * alpha</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ns = E(Ns / 2)</br>
+<violet>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// ici E(Ns/2) correspond à la partie entière de l'opération Ns/2</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// on ne prend que la moitié de la valeur de saturation</br></violet>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int b =255-Ns</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retourne b</br>
+}</br></br>
+
+<h3>b.	Application aux images</h3>
+<center><img src="img/auto.png" width="35%"></center>
+</br>Exemple de résultats obtenus : </br>
+<center><img src="img/termex1.png" width="40%">&nbsp;&nbsp;&nbsp;<img src="img/termex2.png" width="40%"></center>
+</br></br>Récapitulatif de l'ensemble des résultats : </br>
+<center><img src="img/tab2b.png" width="75%"></center>
+</br>Roissy et San-remo pour α  = 0,5% : </br>
+<center><img src="image/roissy05.png" width="40%">&nbsp;&nbsp;&nbsp;<img src="image/sanremo05.png" width="40%"></center></br>
+Roissy et San-remo pour α  = 1,5% : </br>
+<center><img src="image/roissy15.png" width="40%">&nbsp;&nbsp;&nbsp;<img src="image/sanremo15.png" width="40%"></center></br>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+</BODY>
+</HTML>

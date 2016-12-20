@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="AUTHOR" CONTENT="Diane Delallée">
+	<META NAME="CREATED" CONTENT="20120125;22385100">
+	<META NAME="CHANGEDBY" CONTENT="Diane Delallée">
+	<META NAME="CHANGED" CONTENT="20120125;23293800">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 2cm }
+		P { margin-bottom: 0.21cm }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="fr-FR" DIR="LTR">
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm">Diane Delallée – M1
+informatique</P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0cm"><FONT SIZE=4 STYLE="font-size: 16pt">Rapport
+TD2 : Statistiques des images.</FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=3><I><B>1.
+Pixels image et pixels de background</B></I></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal; text-decoration: none">
+<FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Afin
+de compter le nombre de pixels ayant la valeur 0 dans une image, on
+va ajouter un morceau de code dans le programme skelet.c qui permet
+de parcourir l'image pixel par pixel et compter le nombre de pixel
+dont la valeur est à 0.</FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal; text-decoration: none">
+<FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt">Afin
+de calculer la proportion, on va également dans ce morceau de code
+compter le nombre total de pixels.</FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal; text-decoration: none">
+<FONT COLOR="#000000">   <FONT FACE="Helvetica, sans-serif"><FONT SIZE=2><FONT FACE="Menlo-Regular">counter
+= </FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular">0</FONT></FONT><FONT FACE="Menlo-Regular">;</FONT></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#aa0d91">   <FONT SIZE=2><FONT FACE="Menlo-Regular">int</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">
+maxPixels = </FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular">0</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">   </FONT><FONT SIZE=2><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular">for</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">
+(ichannel=</FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular">0</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">;
+ichannel&lt;channel_number; ichannel++){</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     
+</FONT><FONT SIZE=2><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular">for</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">
+(ili=</FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular">0</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">;
+ili&lt;nliin; ili++){</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">      
+  </FONT><FONT SIZE=2><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular">for</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">
+(ipx=</FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular">0</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">;
+ipx&lt;npxin; ipx++){</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2>			processed_image[ichannel][ili*npxin+ipx]
+= origin_image[ichannel][ili*npxin+ipx];</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT SIZE=2><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">			</FONT></FONT><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular">if</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">(processed_image[ichannel][ili*npxin+ipx]
+== </FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular">0</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">){</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT SIZE=2><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">				counter
++= </FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular">1</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2>			}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT SIZE=2><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">			maxPixels
++= </FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular">1</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT SIZE=2><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">	printf(</FONT></FONT><FONT COLOR="#c41a16"><FONT FACE="Menlo-Regular">&quot;Nb
+de pixels à 0 %d&quot;</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">,counter);</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT SIZE=2><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">	printf(</FONT></FONT><FONT COLOR="#c41a16"><FONT FACE="Menlo-Regular">&quot;Nb
+max de pixels %d&quot;</FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular">,maxPixels);</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#000000">On
+trouve alors que pour girl.r il n'y a aucun pixel ayant pour valeur
+0. La proportion est donc de 0%.</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=2 STYLE="font-size: 11pt"><FONT COLOR="#000000"><FONT FACE="Times New Roman, serif">Concernant
+sans-remo.1, on trouve qu'il y a 15913 pixels ayant pour valeur 0.
+Cela nous fait donc une proportion de 6,07%</FONT></FONT><FONT COLOR="#000000">.</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=3><I><B>2.
+Histogramme</B></I></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=2 STYLE="font-size: 11pt"><I><B>a.
+Calculer et afficher l’histogramme de chaque canal de l’image</B></I></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal"><FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="font-weight: normal">Afin
+de calculer l'histogramme de l'image, on va créer un tableau de
+taille 256 correspondant aux valeurs possibles des pixels. On va
+ensuite parcourir tous les pixels de l'image et on incrémentera de 1
+la valeur du tableau correspondant à la valeur du pixel.</SPAN></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal"><FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="font-weight: normal">Une
+fois cela fait, on affichera un nombre d'étoile proportionnel au
+nombre de pixel de valeur i.</SPAN></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal"><FONT COLOR="#000000"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=2><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="font-weight: normal">int</SPAN></FONT></FONT></FONT><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="font-weight: normal">
+values[</SPAN></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="font-weight: normal">256</SPAN></FONT></FONT></FONT><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt"><SPAN STYLE="font-weight: normal">];</SPAN></FONT></FONT></FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">int</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">
+ival2 = </FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">for</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">(ival2
+= </FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;ival2&lt;</FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">256</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;ival2++){</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">  
+<FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">	values[ival2]=</FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">for</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">
+(ichannel=</FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;
+ichannel&lt;channel_number; ichannel++){</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     
+</FONT><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">for</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">
+(ili=</FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;
+ili&lt;nliin; ili++){</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">      
+  </FONT><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">for</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">
+(ipx=</FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;
+ipx&lt;npxin; ipx++){</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">			processed_image[ichannel][ili*npxin+ipx]
+= origin_image[ichannel][ili*npxin+ipx];</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">			values[processed_image[ichannel][ili*npxin+ipx]]
+++;	</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">      
+ <FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">} </FONT></FONT></FONT>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">     
+<FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">} </FONT></FONT></FONT>
+</P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">   <FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">   </FONT><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">int</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">
+ival = </FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">  
+</FONT><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">for</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">(ival
+= </FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;ival&lt;</FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">256</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;ival++){</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">	
+  printf(</FONT></FONT></FONT><FONT COLOR="#c41a16"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;pixel's
+value %d&quot;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">,
+ival);</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">	
+  </FONT></FONT></FONT><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">int</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">
+stars = </FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">	
+  </FONT></FONT></FONT><FONT COLOR="#aa0d91"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">for</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">
+(stars = </FONT></FONT></FONT><FONT COLOR="#1c00cf"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">0</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">;
+stars&lt;values[ival]; stars++{</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">	
+ 		 printf(</FONT></FONT></FONT><FONT COLOR="#c41a16"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;*&quot;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">);</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">   <FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">		}</FONT></FONT></FONT></P>
+<P ALIGN=LEFT STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">		printf(</FONT></FONT></FONT><FONT COLOR="#c41a16"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">&quot;\n&quot;</FONT></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">);</FONT></FONT></FONT></P>
+<P STYLE="margin-bottom: 0cm"><FONT COLOR="#000000">   <FONT FACE="Menlo-Regular"><FONT SIZE=2 STYLE="font-size: 11pt">}</FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=2 STYLE="font-size: 11pt"><I><B>b.
+Afficher « l’image histogramme »</B></I></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=2 STYLE="font-size: 11pt"><I><B>c.
+Capturer « l’image histogramme »</B></I></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><BR>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=3><I><B>3.</B></I><FONT FACE="Times-Roman, serif"><SPAN STYLE="font-style: normal"><SPAN STYLE="font-weight: normal">
+</SPAN></SPAN></FONT><B><I>Moyenne et écart-type</I></B></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=2 STYLE="font-size: 11pt"><I><B>a.
+Formulation mathématique</B></I></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><IMG SRC="test_html_3dfdd3e8.gif" NAME="Objet1" ALIGN=ABSMIDDLE HSPACE=9 WIDTH=228 HEIGHT=44></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt">ici
+on a R(i,j) = 0.255</FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm"><FONT COLOR="#000000"><FONT FACE="Helvetica, sans-serif"><FONT SIZE=2 STYLE="font-size: 11pt"><I><B>b.
+Programmation et calcul de la moyenne et de l’écart-type</B></I></FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt">il
+faut enlever tous les pixels noirs 0</FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt">On
+compte le nombre total de pixel sans ceux de background.</FONT></FONT></FONT></P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt">On
+calcule H(r) = r(i,j) </FONT></FONT></FONT>
+</P>
+<P ALIGN=JUSTIFY STYLE="margin-bottom: 0cm; font-style: normal; font-weight: normal">
+<FONT COLOR="#000000"><FONT FACE="Times New Roman, serif"><FONT SIZE=2 STYLE="font-size: 11pt">et
+hop on fini les calculs.</FONT></FONT></FONT></P>
+</BODY>
+</HTML>

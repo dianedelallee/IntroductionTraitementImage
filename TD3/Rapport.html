@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>Traitement de l'image - TD 3 : animation - seuillage - stretching </TITLE>
+	<META NAME="AUTHOR" CONTENT="Diane Delallée">
+	<META NAME="CREATED" CONTENT="20120125;22385100">
+	<META NAME="CHANGEDBY" CONTENT="Diane Delallée">
+	<META NAME="CHANGED" CONTENT="20120125;23293800">
+<link rel="stylesheet" media="screen" type="text/css" title="Design" href="style.css" />
+<link rel="shortcut icon" type="image/x-icon" href="img/lena.ico" />
+</HEAD>
+
+<BODY LANG="fr-FR" DIR="LTR">
+Diane Delall&eacute;e - M1 Informatique<br/>
+<h1><center>TD3 : animation - seuillage - stretching</center></h1>
+
+<h2>1.Animation de seuillage</h2>
+
+<h3>a.Animation infinie</h3>
+Afin que l'application recommence indéfiniment, il faut modifier la partie "Expose" du programme td3_animation_seuillage.c. Il faut rajouter un while(1) juste avant la boucle for parcourant toutes les valeurs des pixels. De ce fait, la valeur 1 étant toujours vraie, la boucle while s'éxecute indéfiniment, et l'animation ne cesse de recommencer.</br></br>
+<center><img src="img/animationCode.png" width="45%"></center>
+
+<h3>b.Boucle d'évènement</h3>
+Bien que l'image ait été cliqué, le programme étant rentré dans le cas Expose et celui bouclant à l'infini, il est désormais impossible de rentrer dans le cas ButtonPress.</br>
+De ce fait, le clic de la souris n'est jamais pris en compte et seul le bouton de fermeture de la fen&ecirc;tre permet d'arreter le programme.
+
+<h2>2.Stretching linéaire de précision</h2>
+Afin d'appliquer un stretching linéaire à l'image, il faut appliquer la formule suivante : 
+lorsque la valeur du pixel est inférieur à "a", on met le pixel a 0.
+Lorsque la valeur du pixel est supérieur à "b" on met le pixel à 255, sinon celui-ci devient : 255*(pixel-a/b-a).</br></br>
+<center><img src="img/smallCode.png" width="70%"></center></br></br>
+Ici, "int aa" représente la valeur de a, et "int ba" représente la valeur de b désirée.</br></br>
+
+<center><img src="img/NY.png" width="45%"> </br><img src="img/NewYork1522.png" width="65%" border ="1px"></center></br>
+Afin de trouver les valeur de a et b, on regarde l'histogramme de l'image (cf TD précédent), et on cherche le pic pouvant correspondre aux pixelx ayant une valeur sombre représentant la rivière.</br>
+Ici on trouve a = 15 et b = 22.</br></br>
+<center><img src="img/histonew-york.png" ></center>
+
+</br></br>
+Après avoir retravaillé l'image, de nombreux éléments apparaissent comme :</br>
+&nbsp;&nbsp; - &nbsp; des bateaux avec leur sens de navigation :</br></br>
+<center><img src="img/NYBateau.png" width=55%"></center></br>
+&nbsp;&nbsp; - &nbsp; des écoulements en provenance de la Terre :</br></br>
+<center><img src="img/NYFlux.png" width="55%"></center></br>
+&nbsp;&nbsp; - &nbsp; des différences de températures :</br></br>
+<center><img src="img/NYTemp.png" width="55%"></center></br>
+&nbsp;&nbsp; - &nbsp; des différences de calibration des CCDs de l’instrument HRV de SPOT</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; En effet, on remarque que la texture de la rivière n'est pas nette, celle-ci possède de nombreuses bandes verticales.
+
+
+
+<h2>3.Stretching par régions</h2>
+
+<h3>a.Phytoplancton</h3>
+On va ici raisonner comme dans l'exercice précédent, cependant on va travailler sur les trois canaux en m&ecirc;me temps, on va donc adapter le code pour qu'il agisse différement en fonction du canal.</br>
+On aura au préalable initialisé les valeurs (aa,ba), (ab, bb), (ac,bc) avec les valeurs désirées de a et b  correspondant respectivement aux canaux rouge, vert et bleu.</br></br>
+<center><img src="img/bigCode.png" width="70%"></center></br>
+En reprenant les histogrammes de chaque canal, on trouve les valeurs suivantes des variables a et b :</br>
+&nbsp; &nbsp;canal rouge : a = 0 &nbsp;&nbsp;&nbsp;et &nbsp;b = 110 </br>
+&nbsp; &nbsp;canal vert : &nbsp;&nbsp;&nbsp;a = 20 &nbsp;et&nbsp; b = 102</br>
+&nbsp; &nbsp;canal bleu :&nbsp;&nbsp; a = 20 &nbsp;et&nbsp; b = 125</br></br>
+canal rouge : <center><img src="img/histoislandeRouge.png"></center></br></br>
+canal vert : <center><img src="img/histoirlandeGreen.png"></center></br></br>
+canal bleu : <center><img src="img/histoIslandeBleu.png"></center></br></br>
+on obtient alors l'image suivante : <center><img src="img/PHYTO.png" width="40%" border = "1px"></center>
+
+<h3>b.Islande</h3>
+En appliquant le m&ecirc;me raisonnement qu'à la question précédente, on trouve les valeurs suivantes :</br>
+ &nbsp; &nbsp;canal rouge : a = 41 &nbsp;&nbsp;&nbsp;et&nbsp; b = 131</br>
+&nbsp; &nbsp;canal vert : &nbsp;&nbsp;&nbsp;a = 63 &nbsp;et &nbsp;b = 128</br>
+&nbsp; &nbsp;canal bleu :&nbsp;&nbsp; a = 55 &nbsp;et&nbsp; b = 133</br></br>
+canal rouge : <center><img src="img/histoislandeRouge2.png"></center></br></br>
+canal vert : <center><img src="img/histoirlandeGreen2.png"></center></br></br>
+canal bleu : <center><img src="img/histoIslandeBleu2.png"></center></br></br>
+On obtient la représentation ci-dessous :</br>
+<center><img src="img/ISLANDE.png" width ="40%" border="1px"></center></br>
+
+
+<h2>4.Stretching adapté aux besoins de l'utilisateur</h2>
+Dans cet exercice, il faut encore une fois trouver les valeurs de a et b, or ici il faut chercher les "pics" correspondant aux éléments que l'on veut étudier. 
+
+<h3>a.Pilote</h3>
+ On obtient alors les valeurs de a et b suivantes :</br>
+ &nbsp; &nbsp;canal rouge : a = 24 &nbsp;et &nbsp;b = 43</br>
+&nbsp; &nbsp;canal vert :&nbsp;&nbsp;&nbsp; a = 27 &nbsp;&nbsp;&nbsp;et &nbsp;b = 55</br>
+&nbsp; &nbsp;canal bleu : &nbsp;&nbsp;a = 55 &nbsp;&nbsp;&nbsp;et&nbsp; b = 75</br></br>
+canal rouge : <center><img src="img/histoRoissyRouge.png"></center></br></br>
+canal vert : <center><img src="img/histoRoissyVert.png"></center></br></br>
+canal bleu : <center><img src="img/histoRoissyBleu.png"></center></br></br>
+En éxecutant le programme skelet.c on a l'image suivante : </br></br><center><img src="img/ROISSY.png"  width="40%" border="1px"> &nbsp; <img src="img/roissy2.png" width="40%"></center></br></br>
+On constate d'ailleurs, qu'il y a un avion qui s'appr&ecirc;te à décoller sur la partie droite de la piste..
+
+
+<h3>b.Exploitant agricole</h3>
+Pour étudier les champs avoisinant l'aéroport, on procède comme pour la piste, mais en recherchant des pics plus clairs.</br>
+On obtient l'image ci-contre avec les valeurs :</br>
+&nbsp; &nbsp;canal rouge : a = 20 &nbsp;et&nbsp; b = 77</br>
+&nbsp; &nbsp;canal vert :&nbsp;&nbsp;&nbsp; a = 18 &nbsp;et&nbsp; b = 70</br>
+&nbsp; &nbsp;canal bleu :&nbsp;&nbsp; a = 39 &nbsp;et&nbsp; b = 77</br></br>
+canal rouge : <center><img src="img/histoRoissyRouge2.png"></center></br></br>
+canal vert : <center><img src="img/histoRoissyVert2.png"></center></br></br>
+canal bleu : <center><img src="img/histoRoissyBleu2.png"></center></br></br>
+<center><img src="img/roissyCHamp.png"  width="40%" border="1px"></center></br></br>
+</br></br>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+</BODY>
+</HTML>

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE>Traitement de l'image - TD 5 : Traitement radiométrique global par adaptation de l’histogramme à un modèle </TITLE>
+	<META NAME="AUTHOR" CONTENT="Diane Delallée">
+	<META NAME="CREATED" CONTENT="20120125;22385100">
+	<META NAME="CHANGEDBY" CONTENT="Diane Delallée">
+	<META NAME="CHANGED" CONTENT="20120125;23293800">
+<link rel="stylesheet" media="screen" type="text/css" title="Design" href="style.css" />
+</HEAD>
+
+<BODY LANG="fr-FR" DIR="LTR">
+Diane Delall&eacute;e - M1 Informatique<br/>
+<h1><center>T D 5 :</br> Traitement radiométrique global par adaptation de l’histogramme à un modèle </center></h1>
+
+<h2>1. Histogramme cumulé</h2>
+<h3>a.	Calcul de l’histogramme cumule</h3> 
+Pseudo-code permettant de calculer l'histogramme cumulé d'une image : </br></br>
+<center><img src="img/CodeHistogrammeCumule.png" width="46%">&nbsp;&nbsp;&nbsp;<img src="img/histoCumule.png" height="53%"></center>
+</br></br>
+L'histogramme cumulé de gauche est celui du canal vert de l'image de Léna.
+
+<h3>b.	Recherche de la valeur médiane</h3>
+Après avoir calculé l'histogramme cumulé d'une image, on va parcourir celui-ci afin de savoir à partir de quel moment la moitié du nombre total de pixels est dépassé.</br></br>
+<center><img src="img/codeValeurMediane.png" width="50%"></center>
+ 
+
+<h2>2. Adaptation à un modèle</h2>
+<h3>a.	Algorithme d’adaptation</h3>
+
+<violet>// penser a initialiser rOrigine, LUT[rOrigine]</violet></br></br>
+
+fonctionAdaptationLUT(){</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<violet>// initialisation des variables</violet></br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int rModele = 0;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int[] LUT = new int[256] ; </br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pour (int i = 0 &nbsp;;&nbsp; i &nbsp;&lsaquo;&nbsp; 256 &nbsp;;&nbsp;i ++ ){</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LUT[i] = 0 ; </br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<violet>// mis a jour du tableau de transformation : LUT</violet></br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pour(int rOrigine = 0 &nbsp;;&nbsp; rOrigine &nbsp; &lsaquo; &nbsp; NbTotalPixel &nbsp;;&nbsp; rOrigine ++ ){</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tant que ( ( rModele &nbsp; &lsaquo;&nbsp;  nbTotalPixel ) & ( histoCumuleModele[rModele] / nModele &nbsp;&lsaquo; &nbsp; histoCUmuleOrigine[rOrigine] / nOrigine ) ){</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rModele = rModele + 1 ;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LUT[rOrigine] =  rModele ;</br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</br>
+</br>}
+
+<h3>b.	Modèles de distribution – Distribution uniforme</h3>
+<center><img src="img/codeDistribUni.png" width="50%"></center>
+<h3>c.	Distribution uniforme - Statistiques</h3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <violet>// regarde sur le feuille poly dans le dossier ('question2-C')</violet>
+<center><img src="img/Question2-C.jpg" width="40%"></center>
+
+<h3>d.	Modèles de distribution – Distribution Gaussienne</h3>
+<center><img src="img/codeDistribGauss1.png" width="65%"></br><img src="img/codeDistribGauss2.png" width="40%"></center>
+
+<h2>3. Programmation et rapport HTML</h2>
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</br><i><b>Notes personnelles : </b></i><br/>
+</BODY>
+</HTML>
